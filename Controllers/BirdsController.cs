@@ -76,7 +76,7 @@ namespace BlueBirds.Controllers
 
                 var bird = new Bird
                 {
-                    Id = newBird.Id,
+                    Id = Guid.NewGuid().ToString(),
                     Name = newBird.Name,
                     Geolocalization = newBird.Geolocalization,
                     PhotoURL = photoUrl,
@@ -154,8 +154,22 @@ namespace BlueBirds.Controllers
 
 
             }
+            else
+            {
 
-            return Ok(updatedBird);
+                var bird = await _context.Birds.FirstOrDefaultAsync(o=>o.Id == updatedBird.Id);
+
+                bird.Id = updatedBird.Id;
+                bird.Name = updatedBird.Name;
+                bird.Geolocalization = updatedBird.Geolocalization;
+                bird.PhotoURL = bird.PhotoURL;
+                bird.PhotoFile = updatedBird.PhotoFile;
+                
+                await _context.SaveChangesAsync();
+
+                return Ok(bird);
+            }
+
 
         }
 

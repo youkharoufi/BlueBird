@@ -58,6 +58,9 @@ namespace BlueBirds.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PasswordToken")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -65,7 +68,6 @@ namespace BlueBirds.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Role")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
@@ -100,11 +102,9 @@ namespace BlueBirds.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Geolocalization")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhotoURL")

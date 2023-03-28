@@ -14,10 +14,17 @@ namespace BlueBirds.Extension_Services
             services.AddIdentityCore<AppUser>(opt =>
             {
                 opt.Password.RequireNonAlphanumeric = true;
+                opt.SignIn.RequireConfirmedEmail = true;
+                opt.Tokens.EmailConfirmationTokenProvider = "emailconfirmation";
             })
                 .AddRoles<IdentityRole>()
                 .AddRoleManager<RoleManager<IdentityRole>>()
-                .AddEntityFrameworkStores<DataContext>();
+                .AddEntityFrameworkStores<DataContext>()
+                .AddDefaultTokenProviders()
+                .AddTokenProvider<EmailConfirmationTokenProvider<AppUser>>("emailconfirmation");
+
+            services.Configure<EmailConfirmationTokenProviderOptions>(opt =>
+                opt.TokenLifespan = TimeSpan.FromDays(3));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>

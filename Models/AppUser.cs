@@ -12,6 +12,8 @@ namespace BlueBirds.Models
 
         public string? Token { get; set; }
 
+        public string? PasswordToken { get; set; }
+
         [NotMapped]
         public IFormFile? PhotoFile { get; set; }
 
